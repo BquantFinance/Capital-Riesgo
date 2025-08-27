@@ -24,7 +24,7 @@ st.markdown("""
         --text-primary: #e6e9ef;
         --text-secondary: #8b92a8;
         --accent-primary: #7c3aed;
-        --accent-secondary: #a855f7;
+        --accent-secondary: #06b6d4;
         --accent-success: #10b981;
         --accent-warning: #f59e0b;
         --accent-danger: #ef4444;
@@ -43,7 +43,7 @@ st.markdown("""
     }
     
     h1 {
-        background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+        background: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-size: 2.5rem !important;
@@ -62,8 +62,8 @@ st.markdown("""
     
     [data-testid="metric-container"]:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 12px rgba(124, 58, 237, 0.15);
-        border-color: #7c3aed;
+        box-shadow: 0 8px 12px rgba(6, 182, 212, 0.15);
+        border-color: #06b6d4;
     }
     
     /* Sidebar styling */
@@ -88,7 +88,7 @@ st.markdown("""
     }
     
     .stSelectbox > div > div:hover, .stTextInput > div > div > input:hover {
-        border-color: #7c3aed !important;
+        border-color: #06b6d4 !important;
     }
     
     /* Tabs styling */
@@ -107,12 +107,12 @@ st.markdown("""
     
     .stTabs [data-baseweb="tab"]:hover {
         background-color: #252932;
-        border-color: #7c3aed;
+        border-color: #06b6d4;
         color: #e6e9ef;
     }
     
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%) !important;
+        background: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%) !important;
         color: white !important;
         border: none !important;
     }
@@ -133,7 +133,7 @@ st.markdown("""
     }
     
     .streamlit-expanderHeader:hover {
-        border-color: #7c3aed;
+        border-color: #06b6d4;
     }
     
     /* Custom scrollbar */
@@ -147,12 +147,12 @@ st.markdown("""
     }
     
     ::-webkit-scrollbar-thumb {
-        background: #7c3aed;
+        background: linear-gradient(180deg, #7c3aed 0%, #06b6d4 100%);
         border-radius: 5px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: #a855f7;
+        background: linear-gradient(180deg, #06b6d4 0%, #10b981 100%);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -194,14 +194,14 @@ df = load_data()
 st.markdown('<h1>Dashboard de Entidades de Capital Riesgo Españolas</h1>', unsafe_allow_html=True)
 st.markdown('<p style="color: #8b92a8; font-size: 1.1rem; margin-top: -1rem;">Análisis de Fondos y Sociedades de Capital Riesgo e Inversión Colectiva</p>', unsafe_allow_html=True)
 
-# Attribution in header
-col1, col2, col3 = st.columns([2, 1, 1])
+# Attribution and viewing requirements
+col1, col2, col3 = st.columns([1.5, 1, 1])
 with col1:
-    st.markdown('')  # Empty space
+    st.warning('⚠️ **Recomendado**: Visualizar en **modo oscuro** y **resolución de PC** para una experiencia óptima')
 with col2:
-    st.markdown('<p style="text-align: right; color: #a855f7; font-size: 0.9rem;">Desarrollado por <a href="https://twitter.com/Gsnchez" target="_blank" style="color: #a855f7;">@Gsnchez</a></p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: right; color: #06b6d4; font-size: 0.9rem; margin-top: 0.5rem;">Desarrollado por <a href="https://twitter.com/Gsnchez" target="_blank" style="color: #06b6d4;">@Gsnchez</a></p>', unsafe_allow_html=True)
 with col3:
-    st.markdown('<p style="text-align: left; color: #a855f7; font-size: 0.9rem;"><a href="https://bquantfinance.com" target="_blank" style="color: #a855f7;">bquantfinance.com</a></p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: left; color: #10b981; font-size: 0.9rem; margin-top: 0.5rem;"><a href="https://bquantfinance.com" target="_blank" style="color: #10b981;">bquantfinance.com</a></p>', unsafe_allow_html=True)
 
 # Information box
 with st.expander("ℹ️ **Acerca de este Dashboard**"):
@@ -220,7 +220,7 @@ with st.expander("ℹ️ **Acerca de este Dashboard**"):
 
 # Sidebar filters
 with st.sidebar:
-    st.markdown('<h3 style="color: #a855f7;">🔍 Filtros</h3>', unsafe_allow_html=True)
+    st.markdown('<h3 style="color: #06b6d4;">🔍 Filtros</h3>', unsafe_allow_html=True)
     
     # Entity type filter
     entity_types = ['Todos'] + sorted(df['entity_type'].unique().tolist())
@@ -256,7 +256,7 @@ with st.sidebar:
     )
     
     # Date range filter
-    st.markdown('<h4 style="color: #a855f7; margin-top: 1rem;">📅 Rango de Fechas</h4>', unsafe_allow_html=True)
+    st.markdown('<h4 style="color: #10b981; margin-top: 1rem;">📅 Rango de Fechas</h4>', unsafe_allow_html=True)
     min_date = df['fecha_registro'].min()
     max_date = df['fecha_registro'].max()
     date_range = st.date_input(
@@ -270,10 +270,10 @@ with st.sidebar:
     # Add attribution at the bottom of sidebar
     st.markdown("---")
     st.markdown(
-        '<div style="padding: 1rem; background: linear-gradient(135deg, #1e2128 0%, #252932 100%); border-radius: 8px; border: 1px solid #2a2e39;">'
+        '<div style="padding: 1rem; background: linear-gradient(135deg, #7c3aed20 0%, #06b6d420 100%); border-radius: 8px; border: 1px solid #7c3aed50;">'
         '<p style="color: #e6e9ef; font-size: 0.85rem; margin: 0;">💼 <b>Desarrollado por:</b></p>'
-        '<p style="margin: 0.5rem 0;"><a href="https://twitter.com/Gsnchez" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600;">🐦 @Gsnchez</a></p>'
-        '<p style="margin: 0;"><a href="https://bquantfinance.com" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600;">🌐 bquantfinance.com</a></p>'
+        '<p style="margin: 0.5rem 0;"><a href="https://twitter.com/Gsnchez" target="_blank" style="color: #06b6d4; text-decoration: none; font-weight: 600;">🐦 @Gsnchez</a></p>'
+        '<p style="margin: 0;"><a href="https://bquantfinance.com" target="_blank" style="color: #10b981; text-decoration: none; font-weight: 600;">🌐 bquantfinance.com</a></p>'
         '</div>',
         unsafe_allow_html=True
     )
@@ -341,14 +341,22 @@ with tab1:
         st.markdown('<h3 style="color: #e6e9ef;">Distribución por Tipo de Entidad</h3>', unsafe_allow_html=True)
         entity_counts = filtered_df['entity_type'].value_counts()
         
+        # Custom color palette for dark theme
+        dark_theme_colors = [
+            '#a855f7', '#7c3aed', '#06b6d4', '#10b981', 
+            '#f59e0b', '#ef4444', '#ec4899', '#8b5cf6',
+            '#3b82f6', '#14b8a6'
+        ]
+        
         fig_pie = go.Figure(data=[go.Pie(
             labels=entity_counts.index,
             values=entity_counts.values,
             hole=0.4,
             marker=dict(
-                colors=px.colors.sequential.Purples_r[:len(entity_counts)]
+                colors=dark_theme_colors[:len(entity_counts)],
+                line=dict(color='#1a1d25', width=2)
             ),
-            textfont=dict(color='white'),
+            textfont=dict(color='white', size=12),
             hovertemplate='<b>%{label}</b><br>Cantidad: %{value}<br>Porcentaje: %{percent}<extra></extra>'
         )])
         
@@ -385,8 +393,8 @@ with tab1:
             y=timeline_counts['count'],
             mode='lines',
             fill='tozeroy',
-            line=dict(color='#a855f7', width=2),
-            fillcolor='rgba(168, 85, 247, 0.2)',
+            line=dict(color='#06b6d4', width=3),
+            fillcolor='rgba(6, 182, 212, 0.15)',
             hovertemplate='<b>%{x|%b %Y}</b><br>Registros: %{y}<extra></extra>'
         ))
         
@@ -416,22 +424,22 @@ with tab1:
     with col1:
         total_with_isin = filtered_df['isin'].notna().sum()
         perc_isin = (total_with_isin / len(filtered_df) * 100) if len(filtered_df) > 0 else 0
-        st.info(f"**Entidades con ISIN**\n{total_with_isin:,} ({perc_isin:.1f}%)")
+        st.markdown(f'<div style="background: linear-gradient(135deg, #7c3aed20 0%, #06b6d420 100%); padding: 1rem; border-radius: 8px; border: 1px solid #7c3aed50;"><b>Entidades con ISIN</b><br>{total_with_isin:,} ({perc_isin:.1f}%)</div>', unsafe_allow_html=True)
     
     with col2:
         total_with_folleto = filtered_df['folleto_url'].notna().sum()
         perc_folleto = (total_with_folleto / len(filtered_df) * 100) if len(filtered_df) > 0 else 0
-        st.info(f"**Con Folleto Disponible**\n{total_with_folleto:,} ({perc_folleto:.1f}%)")
+        st.markdown(f'<div style="background: linear-gradient(135deg, #06b6d420 0%, #10b98120 100%); padding: 1rem; border-radius: 8px; border: 1px solid #06b6d450;"><b>Con Folleto Disponible</b><br>{total_with_folleto:,} ({perc_folleto:.1f}%)</div>', unsafe_allow_html=True)
     
     with col3:
         total_with_gestora = filtered_df['gestora_nombre'].notna().sum()
         perc_gestora = (total_with_gestora / len(filtered_df) * 100) if len(filtered_df) > 0 else 0
-        st.info(f"**Con Gestora Asignada**\n{total_with_gestora:,} ({perc_gestora:.1f}%)")
+        st.markdown(f'<div style="background: linear-gradient(135deg, #10b98120 0%, #f59e0b20 100%); padding: 1rem; border-radius: 8px; border: 1px solid #10b98150;"><b>Con Gestora Asignada</b><br>{total_with_gestora:,} ({perc_gestora:.1f}%)</div>', unsafe_allow_html=True)
     
     with col4:
         total_with_depositaria = filtered_df['depositaria_nombre'].notna().sum()
         perc_depositaria = (total_with_depositaria / len(filtered_df) * 100) if len(filtered_df) > 0 else 0
-        st.info(f"**Con Depositaria**\n{total_with_depositaria:,} ({perc_depositaria:.1f}%)")
+        st.markdown(f'<div style="background: linear-gradient(135deg, #f59e0b20 0%, #ef444420 100%); padding: 1rem; border-radius: 8px; border: 1px solid #f59e0b50;"><b>Con Depositaria</b><br>{total_with_depositaria:,} ({perc_depositaria:.1f}%)</div>', unsafe_allow_html=True)
 
 with tab2:
     st.markdown('<h3 style="color: #e6e9ef;">Top 15 Sociedades Gestoras</h3>', unsafe_allow_html=True)
@@ -445,19 +453,22 @@ with tab2:
         orientation='h',
         marker=dict(
             color=top_gestoras.values,
-            colorscale='Purples',
+            colorscale=[[0, '#7c3aed'], [0.5, '#06b6d4'], [1, '#10b981']],
             showscale=True,
             colorbar=dict(
                 title=dict(
                     text="Entidades",
                     font=dict(color='#e6e9ef')
                 ),
-                tickfont=dict(color='#e6e9ef')
+                tickfont=dict(color='#e6e9ef'),
+                bgcolor='rgba(30, 33, 40, 0.8)',
+                bordercolor='#2a2e39',
+                borderwidth=1
             )
         ),
         text=top_gestoras.values,
         textposition='outside',
-        textfont=dict(color='#e6e9ef'),
+        textfont=dict(color='#e6e9ef', size=11),
         hovertemplate='<b>%{y}</b><br>Entidades: %{x}<extra></extra>'
     )])
     
@@ -491,11 +502,17 @@ with tab2:
             z=heatmap_pivot.values,
             x=heatmap_pivot.columns,
             y=heatmap_pivot.index,
-            colorscale='Purples',
+            colorscale=[[0, '#1e2128'], [0.2, '#7c3aed'], [0.5, '#06b6d4'], [0.8, '#10b981'], [1, '#f59e0b']],
             text=heatmap_pivot.values,
             texttemplate='%{text:.0f}',
             textfont={"size": 10, "color": "white"},
-            hovertemplate='<b>%{y}</b><br>Año: %{x}<br>Cantidad: %{z}<extra></extra>'
+            hovertemplate='<b>%{y}</b><br>Año: %{x}<br>Cantidad: %{z}<extra></extra>',
+            colorbar=dict(
+                tickfont=dict(color='#e6e9ef'),
+                bgcolor='rgba(30, 33, 40, 0.8)',
+                bordercolor='#2a2e39',
+                borderwidth=1
+            )
         ))
         
         fig_heatmap.update_layout(
@@ -527,12 +544,14 @@ with tab3:
         search_df = filtered_df
     
     # Display settings
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
+        # Default columns without 'denominacion' to avoid duplicates
+        default_cols = ['entity_name', 'entity_type', 'gestora_nombre', 'fecha_registro', 'isin']
         show_cols = st.multiselect(
             "Seleccionar columnas a mostrar",
             df.columns.tolist(),
-            default=['entity_name', 'entity_type', 'gestora_nombre', 'fecha_registro', 'isin']
+            default=default_cols
         )
     with col2:
         sort_by = st.selectbox(
@@ -546,19 +565,67 @@ with tab3:
             ['Ascendente', 'Descendente'],
             horizontal=True
         )
+    with col4:
+        # Add grouping option
+        group_by_entity = st.checkbox(
+            "Agrupar por entidad",
+            value=('denominacion' not in show_cols and 'numero' not in show_cols),
+            help="Agrupa los registros por entidad cuando no se muestran las clases"
+        )
     
     # Apply sorting
     ascending = sort_order == 'Ascendente'
     search_df = search_df.sort_values(sort_by, ascending=ascending)
     
-    # Display data
-    st.markdown(f'<p style="color: #8b92a8;">Mostrando {len(search_df):,} registros</p>', unsafe_allow_html=True)
+    # Handle grouping to avoid duplicates
+    if group_by_entity:
+        # Group by entity and aggregate data
+        groupby_cols = [col for col in show_cols if col not in ['denominacion', 'numero', 'isin', 'fecha_alta', 'dfi']]
+        
+        if groupby_cols:
+            # Create aggregation dict
+            agg_dict = {}
+            for col in show_cols:
+                if col in ['denominacion', 'numero']:
+                    agg_dict[col] = lambda x: f"{len(x)} clases"
+                elif col == 'isin':
+                    agg_dict[col] = lambda x: ', '.join(x.dropna().unique()[:3]) + ('...' if len(x.dropna().unique()) > 3 else '')
+                elif col in ['fecha_alta', 'dfi']:
+                    agg_dict[col] = 'first'
+                elif col in ['fecha_registro', 'fecha_ultimo_folleto']:
+                    agg_dict[col] = 'first'
+                else:
+                    agg_dict[col] = 'first'
+            
+            # Group and aggregate
+            display_df = search_df.groupby(groupby_cols, dropna=False).agg(agg_dict).reset_index()
+            
+            # If denominacion or numero are in the aggregated columns, rename them
+            if 'denominacion' in display_df.columns:
+                display_df.rename(columns={'denominacion': 'clases'}, inplace=True)
+            if 'numero' in display_df.columns:
+                display_df.rename(columns={'numero': 'clases'}, inplace=True)
+            
+            # Ensure correct column order
+            display_df = display_df[[col if col not in ['denominacion', 'numero'] else 'clases' 
+                                   for col in show_cols if col in display_df.columns or col in ['denominacion', 'numero']]]
+        else:
+            display_df = search_df[show_cols].copy()
+    else:
+        display_df = search_df[show_cols].copy()
+    
+    # Display record count
+    if group_by_entity and ('denominacion' not in show_cols and 'numero' not in show_cols):
+        st.markdown(f'<p style="color: #8b92a8;">Mostrando {len(display_df):,} entidades únicas ({len(search_df):,} registros totales)</p>', 
+                   unsafe_allow_html=True)
+    else:
+        st.markdown(f'<p style="color: #8b92a8;">Mostrando {len(display_df):,} registros</p>', unsafe_allow_html=True)
     
     # Format datetime columns for display
-    display_df = search_df[show_cols].copy()
     for col in display_df.select_dtypes(include=['datetime64']).columns:
         display_df[col] = display_df[col].dt.strftime('%d/%m/%Y')
     
+    # Display the dataframe
     st.dataframe(
         display_df,
         use_container_width=True,
@@ -566,7 +633,7 @@ with tab3:
         hide_index=True
     )
     
-    # Download button
+    # Download button - use original search_df for download
     csv = search_df[show_cols].to_csv(index=False)
     st.download_button(
         label="⬇️ Descargar datos filtrados como CSV",
@@ -581,7 +648,7 @@ with tab4:
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<h4 style="color: #a855f7;">Resumen de Sociedades Gestoras</h4>', unsafe_allow_html=True)
+        st.markdown('<h4 style="color: #06b6d4;">Resumen de Sociedades Gestoras</h4>', unsafe_allow_html=True)
         gestora_stats = filtered_df.groupby('gestora_nombre').agg({
             'entity_name': 'nunique',
             'entity_type': lambda x: x.value_counts().index[0] if len(x) > 0 else 'N/A'
@@ -596,7 +663,7 @@ with tab4:
         )
     
     with col2:
-        st.markdown('<h4 style="color: #a855f7;">Resumen de Entidades Depositarias</h4>', unsafe_allow_html=True)
+        st.markdown('<h4 style="color: #10b981;">Resumen de Entidades Depositarias</h4>', unsafe_allow_html=True)
         dep_stats = filtered_df.groupby('depositaria_nombre').agg({
             'entity_name': 'nunique',
             'entity_type': lambda x: x.value_counts().index[0] if len(x) > 0 else 'N/A'
@@ -611,7 +678,7 @@ with tab4:
         )
     
     # Network visualization placeholder
-    st.markdown('<h4 style="color: #a855f7;">Relaciones entre Entidades</h4>', unsafe_allow_html=True)
+    st.markdown('<h4 style="color: #f59e0b;">Relaciones entre Entidades</h4>', unsafe_allow_html=True)
     
     # Create a simple relationship analysis
     relationships = filtered_df[['entity_name', 'gestora_nombre', 'depositaria_nombre']].dropna()
@@ -624,11 +691,11 @@ with tab4:
         
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.info(f"🔗 {total_connections:,} conexiones totales")
+            st.markdown(f'<div style="background: linear-gradient(135deg, #7c3aed20 0%, #06b6d420 100%); padding: 1rem; border-radius: 8px; border: 1px solid #7c3aed50; text-align: center;">🔗 <b>{total_connections:,}</b><br>conexiones totales</div>', unsafe_allow_html=True)
         with col2:
-            st.info(f"🏢 {unique_managers} sociedades gestoras")
+            st.markdown(f'<div style="background: linear-gradient(135deg, #06b6d420 0%, #10b98120 100%); padding: 1rem; border-radius: 8px; border: 1px solid #06b6d450; text-align: center;">🏢 <b>{unique_managers}</b><br>sociedades gestoras</div>', unsafe_allow_html=True)
         with col3:
-            st.info(f"🏦 {unique_depositaries} depositarias")
+            st.markdown(f'<div style="background: linear-gradient(135deg, #10b98120 0%, #f59e0b20 100%); padding: 1rem; border-radius: 8px; border: 1px solid #10b98150; text-align: center;">🏦 <b>{unique_depositaries}</b><br>depositarias</div>', unsafe_allow_html=True)
         
         # Most connected entities
         st.markdown('<h5 style="color: #e6e9ef;">Gestoras Más Conectadas</h5>', unsafe_allow_html=True)
@@ -637,10 +704,14 @@ with tab4:
         fig_connected = go.Figure(data=[go.Bar(
             x=connected.index,
             y=connected.values,
-            marker_color='#a855f7',
+            marker=dict(
+                color=connected.values,
+                colorscale=[[0, '#7c3aed'], [1, '#06b6d4']],
+                showscale=False
+            ),
             text=connected.values,
             textposition='outside',
-            textfont=dict(color='#e6e9ef'),
+            textfont=dict(color='#e6e9ef', size=12),
             hovertemplate='<b>%{x}</b><br>Depositarias Conectadas: %{y}<extra></extra>'
         )])
         
@@ -663,7 +734,7 @@ with tab4:
         st.plotly_chart(fig_connected, use_container_width=True)
     
     # Market concentration analysis
-    st.markdown('<h4 style="color: #a855f7;">Concentración del Mercado</h4>', unsafe_allow_html=True)
+    st.markdown('<h4 style="color: #ef4444;">Concentración del Mercado</h4>', unsafe_allow_html=True)
     
     top_10_gestoras = filtered_df['gestora_nombre'].value_counts().head(10)
     market_share = (top_10_gestoras.sum() / filtered_df['gestora_nombre'].notna().sum() * 100)
@@ -686,14 +757,14 @@ with tab4:
 # Footer
 st.markdown("---")
 st.markdown(
-    '<div style="background: linear-gradient(135deg, #1e2128 0%, #252932 100%); padding: 1.5rem; border-radius: 12px; border: 1px solid #2a2e39; margin-top: 2rem;">'
+    '<div style="background: linear-gradient(135deg, #7c3aed15 0%, #06b6d415 100%); padding: 1.5rem; border-radius: 12px; border: 1px solid #7c3aed30; margin-top: 2rem;">'
     '<p style="text-align: center; color: #e6e9ef; font-size: 0.9rem; margin: 0;">'
     '📊 <b>Dashboard de Capital Riesgo Español</b><br>'
     '<span style="color: #8b92a8;">Última Actualización de Datos: ' + 
     df['fecha_registro'].max().strftime('%B %Y') + '</span></p>'
     '<p style="text-align: center; margin: 1rem 0 0 0;">'
-    '<a href="https://twitter.com/Gsnchez" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600; margin-right: 2rem;">🐦 @Gsnchez</a>'
-    '<a href="https://bquantfinance.com" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600;">🌐 bquantfinance.com</a>'
+    '<a href="https://twitter.com/Gsnchez" target="_blank" style="color: #06b6d4; text-decoration: none; font-weight: 600; margin-right: 2rem;">🐦 @Gsnchez</a>'
+    '<a href="https://bquantfinance.com" target="_blank" style="color: #10b981; text-decoration: none; font-weight: 600;">🌐 bquantfinance.com</a>'
     '</p></div>',
     unsafe_allow_html=True
 )
