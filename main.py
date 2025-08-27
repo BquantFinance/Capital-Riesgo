@@ -578,37 +578,40 @@ with tab3:
     search_df = search_df.sort_values(sort_by, ascending=ascending)
     
     # Handle grouping to avoid duplicates
-    if group_by_entity:
-        # Group by entity and aggregate data
-        groupby_cols = [col for col in show_cols if col not in ['denominacion', 'numero', 'isin', 'fecha_alta', 'dfi']]
+    if group_by_entity and len(show_cols) > 0:
+        # Identify columns to group by (exclude class-specific columns)
+        class_specific_cols = ['denominacion', 'numero', 'isin', 'fecha_alta', 'dfi']
+        groupby_cols = [col for col in show_cols if col not in class_specific_cols]
         
         if groupby_cols:
-            # Create aggregation dict
+            # Create aggregation dict only for non-groupby columns
+            agg_cols = [col for col in show_cols if col not in groupby_cols]
             agg_dict = {}
-            for col in show_cols:
+            
+            for col in agg_cols:
                 if col in ['denominacion', 'numero']:
                     agg_dict[col] = lambda x: f"{len(x)} clases"
                 elif col == 'isin':
-                    agg_dict[col] = lambda x: ', '.join(x.dropna().unique()[:3]) + ('...' if len(x.dropna().unique()) > 3 else '')
-                elif col in ['fecha_alta', 'dfi']:
-                    agg_dict[col] = 'first'
-                elif col in ['fecha_registro', 'fecha_ultimo_folleto']:
-                    agg_dict[col] = 'first'
+                    agg_dict[col] = lambda x: ', '.join([str(i) for i in x.dropna().unique()[:3]]) + ('...' if len(x.dropna().unique()) > 3 else '')
                 else:
                     agg_dict[col] = 'first'
             
-            # Group and aggregate
-            display_df = search_df.groupby(groupby_cols, dropna=False).agg(agg_dict).reset_index()
+            # Only aggregate if there are columns to aggregate
+            if agg_dict:
+                display_df = search_df[show_cols].groupby(groupby_cols, dropna=False, as_index=False).agg(agg_dict)
+            else:
+                # If no columns to aggregate, just drop duplicates
+                display_df = search_df[show_cols].drop_duplicates()
             
-            # If denominacion or numero are in the aggregated columns, rename them
+            # Rename class columns if they exist
+            rename_dict = {}
             if 'denominacion' in display_df.columns:
-                display_df.rename(columns={'denominacion': 'clases'}, inplace=True)
+                rename_dict['denominacion'] = 'clases'
             if 'numero' in display_df.columns:
-                display_df.rename(columns={'numero': 'clases'}, inplace=True)
+                rename_dict['numero'] = 'clases'
             
-            # Ensure correct column order
-            display_df = display_df[[col if col not in ['denominacion', 'numero'] else 'clases' 
-                                   for col in show_cols if col in display_df.columns or col in ['denominacion', 'numero']]]
+            if rename_dict:
+                display_df = display_df.rename(columns=rename_dict)
         else:
             display_df = search_df[show_cols].copy()
     else:
@@ -616,6 +619,7 @@ with tab3:
     
     # Display record count
     if group_by_entity and ('denominacion' not in show_cols and 'numero' not in show_cols):
+        unique_entities = search_df['entity_name'].nunique()
         st.markdown(f'<p style="color: #8b92a8;">Mostrando {len(display_df):,} entidades únicas ({len(search_df):,} registros totales)</p>', 
                    unsafe_allow_html=True)
     else:
