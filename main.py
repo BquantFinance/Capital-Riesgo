@@ -154,18 +154,6 @@ st.markdown("""
     ::-webkit-scrollbar-thumb:hover {
         background: #a855f7;
     }
-    
-    /* Footer link styling */
-    .footer-link {
-        color: #a855f7;
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-    
-    .footer-link:hover {
-        color: #7c3aed;
-        text-decoration: underline;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -205,6 +193,15 @@ df = load_data()
 # Title with gradient
 st.markdown('<h1>Dashboard de Entidades de Capital Riesgo Españolas</h1>', unsafe_allow_html=True)
 st.markdown('<p style="color: #8b92a8; font-size: 1.1rem; margin-top: -1rem;">Análisis de Fondos y Sociedades de Capital Riesgo e Inversión Colectiva</p>', unsafe_allow_html=True)
+
+# Attribution in header
+col1, col2, col3 = st.columns([2, 1, 1])
+with col1:
+    st.markdown('')  # Empty space
+with col2:
+    st.markdown('<p style="text-align: right; color: #a855f7; font-size: 0.9rem;">Desarrollado por <a href="https://twitter.com/Gsnchez" target="_blank" style="color: #a855f7;">@Gsnchez</a></p>', unsafe_allow_html=True)
+with col3:
+    st.markdown('<p style="text-align: left; color: #a855f7; font-size: 0.9rem;"><a href="https://bquantfinance.com" target="_blank" style="color: #a855f7;">bquantfinance.com</a></p>', unsafe_allow_html=True)
 
 # Information box
 with st.expander("ℹ️ **Acerca de este Dashboard**"):
@@ -268,6 +265,17 @@ with st.sidebar:
         min_value=min_date,
         max_value=max_date,
         format="DD/MM/YYYY"
+    )
+    
+    # Add attribution at the bottom of sidebar
+    st.markdown("---")
+    st.markdown(
+        '<div style="padding: 1rem; background: linear-gradient(135deg, #1e2128 0%, #252932 100%); border-radius: 8px; border: 1px solid #2a2e39;">'
+        '<p style="color: #e6e9ef; font-size: 0.85rem; margin: 0;">💼 <b>Desarrollado por:</b></p>'
+        '<p style="margin: 0.5rem 0;"><a href="https://twitter.com/Gsnchez" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600;">🐦 @Gsnchez</a></p>'
+        '<p style="margin: 0;"><a href="https://bquantfinance.com" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600;">🌐 bquantfinance.com</a></p>'
+        '</div>',
+        unsafe_allow_html=True
     )
 
 # Apply filters
@@ -440,8 +448,10 @@ with tab2:
             colorscale='Purples',
             showscale=True,
             colorbar=dict(
-                title="Entidades",
-                titlefont=dict(color='#e6e9ef'),
+                title=dict(
+                    text="Entidades",
+                    font=dict(color='#e6e9ef')
+                ),
                 tickfont=dict(color='#e6e9ef')
             )
         ),
@@ -676,10 +686,14 @@ with tab4:
 # Footer
 st.markdown("---")
 st.markdown(
-    '<p style="text-align: center; color: #8b92a8;">'
-    'Última Actualización de Datos: ' + 
-    df['fecha_registro'].max().strftime('%B %Y') + 
-    '<br>Desarrollado por <a href="https://twitter.com/Gsnchez" target="_blank" class="footer-link">@Gsnchez</a> • '
-    '<a href="https://bquantfinance.com" target="_blank" class="footer-link">bquantfinance.com</a></p>',
+    '<div style="background: linear-gradient(135deg, #1e2128 0%, #252932 100%); padding: 1.5rem; border-radius: 12px; border: 1px solid #2a2e39; margin-top: 2rem;">'
+    '<p style="text-align: center; color: #e6e9ef; font-size: 0.9rem; margin: 0;">'
+    '📊 <b>Dashboard de Capital Riesgo Español</b><br>'
+    '<span style="color: #8b92a8;">Última Actualización de Datos: ' + 
+    df['fecha_registro'].max().strftime('%B %Y') + '</span></p>'
+    '<p style="text-align: center; margin: 1rem 0 0 0;">'
+    '<a href="https://twitter.com/Gsnchez" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600; margin-right: 2rem;">🐦 @Gsnchez</a>'
+    '<a href="https://bquantfinance.com" target="_blank" style="color: #a855f7; text-decoration: none; font-weight: 600;">🌐 bquantfinance.com</a>'
+    '</p></div>',
     unsafe_allow_html=True
 )
